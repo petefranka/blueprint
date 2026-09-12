@@ -2,13 +2,15 @@
 
 ## INT-XXX
 
-### Requirement
+### E-001 — <short claim name>
 
-### Evidence
+#### Requirement
+
+#### Evidence
 -
 
-### Confidence
+#### Confidence
 High | Medium | Low
 
-### Category
+#### Category
 Observation | Intent | Inference | Assumption | Unknown

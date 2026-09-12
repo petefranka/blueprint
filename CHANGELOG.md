@@ -16,6 +16,12 @@
   use Sonnet for large analysis, cross-feature review, and final critique.
 - Add delivery-boundary reasoning so capabilities that only make sense as
   one coherent outcome produce one feature and one intent file.
+- Record preliminary depth, evidence packets, source hashes, and run
+  manifests so continuation assesses and analyzes only stale work.
+- Synthesize Small intents directly and invoke cross-feature analysts only
+  when evidence signals or cannot rule out their concern.
+- Replace the repetitive intent format with a compact behavior-first schema,
+  stable inline evidence IDs, omitted empty sections, and depth word targets.
 - Add scope-routing acceptance cases for all depths, mixed workloads,
   missing evidence, conflicts, and escalation.
 

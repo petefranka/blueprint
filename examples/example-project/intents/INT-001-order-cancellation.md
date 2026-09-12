@@ -9,106 +9,53 @@ source_blueprint_entry: F1
 
 # INT-001: Order Cancellation
 
-## Purpose
-Let a user back out of an order before it has progressed too far into
-fulfillment to reasonably reverse.
+## Outcome
 
-## Problem
-Users sometimes need to undo a purchase decision (wrong item, changed
-mind, ordered by mistake) after the order is placed but before it's
-irreversibly on its way.
+A shopper can cancel an eligible order before fulfillment progresses too
+far and immediately know the cancellation succeeded. [E-001] [E-003]
 
-## Users
-Primary: a shopper who has an existing, not-yet-completed order.
+## Behaviour
 
-## Desired Outcome
-The user can cancel an eligible order in a couple of taps and knows
-immediately, unambiguously, that it worked.
+- An eligible order offers cancellation from its details. [E-001]
+- Cancellation requires explicit confirmation. Going back leaves the
+  order unchanged. [E-001]
+- A successful cancellation changes the order status to Cancelled and
+  shows clear confirmation. [E-003]
+- An ineligible order does not offer cancellation. [E-002]
 
-## User Goals
-- Undo a purchase before it's too late to do so.
-- Avoid uncertainty about whether the cancellation actually went through.
+## Journeys
 
-## Core Behaviour
-From an order's details, an eligible order can be cancelled after an
-explicit confirmation step. Once cancelled, the order's status reflects
-this everywhere it's shown (see Shared Capabilities).
+1. The shopper opens an eligible order, selects Cancel, confirms, and sees
+   the Cancelled status and success feedback. [E-001] [E-003]
+- **Back:** The shopper leaves the confirmation without changing the
+  order. [E-001]
 
-## Workflows
+## Rules and States
 
-**Primary journey**
-1. User views Order Details for an eligible order.
-2. User selects Cancel.
-3. User is asked to confirm (Confirm / Back).
-4. User confirms.
-5. Order status updates to Cancelled; user sees clear success feedback.
+- Orders move from Cancellable to Not cancellable at a fulfillment cutoff;
+  the exact cutoff is unresolved. [E-002]
+- Cancelled is terminal for this feature. [E-003]
 
-**Alternative journey — user backs out**
-1-3. Same as above.
-4. User selects Back instead of Confirm.
-5. No change occurs; user remains on Order Details.
+## Experience
 
-**Ineligible order**
-- If an order is not eligible for cancellation, no cancellation entry
-  point is presented (Observation: current design simply hides the Cancel
-  action rather than showing it disabled with an explanation). Whether a
-  disabled-with-explanation treatment would serve users better is not
-  established by current evidence — flagged as an Assumption below rather
-  than changed unilaterally.
+The confirmation prevents accidental cancellation. The result is explicit
+so the shopper does not need to infer success from a silent status change.
+[E-001] [E-003]
 
-## States
-- Cancellable — order has not yet crossed the eligibility cutoff.
-- Not cancellable — order has crossed the eligibility cutoff (exact
-  cutoff: see Open Decisions).
-- Cancelled — terminal state after successful confirmation.
+## Relationships
 
-## Rules
-- A cancellation requires an explicit confirm step; it must not be a
-  single, no-confirmation tap.
-- Exactly where the cancellable → not-cancellable transition occurs is
-  not resolved by current evidence (see Open Decisions — DEC-001).
+- Order status is shared with INT-002, which displays the result. [E-003]
 
-## Experience Intent
-Cancellation must feel safe and reversible right up until the confirm
-step (hence the confirmation dialog), and the outcome must feel certain
-immediately after confirming — a clear, unambiguous success indication,
-not just a silent status change the user has to go looking for.
+## Uncertainty
 
-## Constraints
-Only orders in a cancellable state expose the cancellation action at all.
+- **Assumption:** Hiding cancellation for ineligible orders is intentional.
+  [E-002]
+- **Decision:** DEC-001 - Define the fulfillment cutoff for cancellation.
+- **Out of scope:** Payment and refund behavior after cancellation.
 
-## Dependencies
-Soft dependency on INT-002 (Order History): in practice this feature is
-most often entered by navigating from an order history list, though
-nothing about this feature's own behavior requires that entry point.
+## Acceptance
 
-## Shared Capabilities
-Order record/status: this feature both reads and writes the same
-underlying order status concept that INT-002 (Order History) reads and
-displays.
-
-## Assumptions
-- Assuming the current hide-when-ineligible treatment (rather than
-  disabled-with-explanation) is intentional, since no evidence suggests
-  otherwise and it's a low-impact presentational choice, not a behavior
-  change.
-
-## Open Decisions
-- DEC-001 — the fulfillment-progress cutoff at which an order stops being
-  cancellable is unresolved; two source documents disagree (see
-  `decisions.md`). This is left open rather than guessed.
-
-## Out of Scope
-- What happens to payment/refund processing after cancellation is not
-  addressed by current source material and is not assumed here.
-
-## Acceptance Signals
-- A user can cancel any order that is genuinely still eligible, and
-  cannot cancel one that is not.
-- After cancelling, the order's status is immediately and consistently
-  shown as Cancelled everywhere the order appears.
-- No user reaches a state where they're unsure whether their cancellation
-  succeeded.
-
-## Evidence
-See `evidence.md`, section "INT-001."
+- Eligible orders can be cancelled only after confirmation.
+- Ineligible orders cannot be cancelled.
+- Cancellation status and feedback are immediate and consistent wherever
+  the order appears.

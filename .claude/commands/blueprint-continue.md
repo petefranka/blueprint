@@ -123,7 +123,15 @@ re-decide boundaries yourself.
    Observation/Intent/Inference/Assumption/Unknown rule, and route
    unresolved material to `intent/decisions.md` using the
    Decision/Assumption/Unknown/Out-of-Scope sorting rule — never invent an
-   answer. Populate `intent/evidence.md` and `intent/intent-manifest.md`.
+   answer. Populate `intent/evidence.md` with stable evidence IDs and
+   `intent/intent-manifest.md`.
+
+   Follow the compact writing contract exactly. Write directly without a
+   preamble or recap. State each idea once, use short declarative sentences,
+   cite evidence IDs inline, omit empty optional sections, and describe
+   observable product behavior rather than implementation. Respect the
+   Small/Medium/Large word target; exceed it only to preserve distinct
+   material behavior or uncertainty.
 
 4. **Phase 6 — Validation.** Invoke the `intent-critic` subagent
    (Task tool) over the full synthesized intent set at every depth, using
@@ -153,7 +161,10 @@ re-decide boundaries yourself.
    run, do not silently overwrite. Diff against the prior version, bump
    the `version` field, and summarize what changed. Do not delete existing
    `decisions.md` entries — move resolved ones to `Status: Resolved`
-   instead.
+   instead. Migrate legacy long-form intent headings into the current
+   compact schema without treating consolidation or deleted empty headings
+   as a product-behavior change. Preserve every distinct requirement,
+   uncertainty, decision reference, and evidence link.
 
 7. Report to the user: accepted depth per feature and any escalations,
    how many intents were generated, what dependencies

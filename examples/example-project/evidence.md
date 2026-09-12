@@ -1,93 +1,93 @@
-# Evidence Log — OrderEase example
+# Evidence Log - OrderEase example
 
 ## INT-001
 
-### Requirement
-Users must be able to cancel an eligible order from Order Details.
+### E-001 - Cancellation action and confirmation
 
-### Evidence
+#### Requirement
+Users can cancel an eligible order from Order Details after confirmation.
+
+#### Evidence
 - Order Details screen: "Cancel Order" button
 - Order Details screen: confirmation dialog (Confirm/Back)
 
-### Confidence
+#### Confidence
 High
 
-### Category
+#### Category
 Observation
 
----
+### E-002 - Cancellation eligibility
 
-### Requirement
-Cancellation eligibility is bounded by fulfillment progress, but the exact
-cutoff is unresolved (see DEC-001).
+#### Requirement
+Fulfillment progress limits cancellation, but the exact cutoff is unresolved.
 
-### Evidence
+#### Evidence
 - Order Details screen: Cancel button visible only pre-shipment
-- Product notes doc: "before the warehouse picks the item"
-- Older notes file (previous iteration): "before the order shows as Shipped"
+- Product notes: "before the warehouse picks the item"
+- Older notes: "before the order shows as Shipped"
 
-### Confidence
+#### Confidence
 Low
 
-### Category
+#### Category
 Unknown (see DEC-001)
 
----
+### E-003 - Cancellation result
 
-### Requirement
-On successful cancellation, the user receives clear confirmation and the
-order's status updates to reflect cancellation.
+#### Requirement
+Successful cancellation gives confirmation and changes the order status.
 
-### Evidence
-- Order Details screen: success banner after confirm
+#### Evidence
+- Order Details screen: success banner after confirmation
 - Order Details screen: order status becomes "Cancelled"
 
-### Confidence
+#### Confidence
 High
 
-### Category
+#### Category
 Observation
 
 ## INT-002
 
-### Requirement
-Users must be able to browse a list of their past orders.
+### E-004 - Order list
 
-### Evidence
-- Order History screen: scrollable order list
+#### Requirement
+Users can browse past orders and open an order's details.
 
-### Confidence
+#### Evidence
+- Order History screen: scrollable order list with date, item, total, and status
+
+#### Confidence
 High
 
-### Category
+#### Category
 Observation
 
----
+### E-005 - Status filtering
 
-### Requirement
-Users must be able to filter their order history by status.
+#### Requirement
+Users can filter their order history by status.
 
-### Evidence
+#### Evidence
 - Order History screen: status filter control
 
-### Confidence
+#### Confidence
 High
 
-### Category
+#### Category
 Observation
 
----
+### E-006 - Empty state
 
-### Requirement
-Users with no past orders must see a clear empty state that encourages
-further action, not a blank or broken-looking screen.
+#### Requirement
+Users with no orders see an explanation and a next action.
 
-### Evidence
-- Order History screen: empty-state illustration + "No orders yet — start
-  shopping."
+#### Evidence
+- Order History screen: "No orders yet - start shopping."
 
-### Confidence
+#### Confidence
 High
 
-### Category
+#### Category
 Observation

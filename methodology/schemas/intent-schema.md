@@ -34,6 +34,7 @@ the user experience. One short paragraph or concise bullets.>
 ## Uncertainty
 - **Assumption:** <Minor default and basis.> [E-XXX]
 - **Decision:** DEC-XXX — <Consequential unresolved question.>
+- **Unknown:** <Low-impact fact the evidence cannot establish.> [E-XXX]
 - **Out of scope:** <Relevant boundary clarification.>
 
 ## Acceptance

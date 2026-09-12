@@ -5,8 +5,8 @@ This is how Blueprint's methodology connects to Claude Code.
 | Blueprint concept | Claude Code piece |
 |---|---|
 | The two-step approval flow | `/blueprint` and `/blueprint-continue`, in `.claude/commands/` |
-| The nine roles | Subagents in `.claude/agents/`; invoke the scope assessor first, then independent specialist calls in parallel via the Task tool |
-| Cheap scope assessment | `scope-assessor` uses Haiku, low effort, read-only tools, and four turns; returns a routing recommendation to the main session |
+| The nine roles | Subagents in `.claude/agents/`; discovery proposes depth, then stale entries use the scope assessor before specialist calls |
+| Cheap scope assessment | `scope-assessor` uses Haiku, low effort, read-only tools, and four turns; unchanged entries skip it |
 | Bounded analysis | Decomposition and medium analysis use Haiku; large analysis and critique use Sonnet. Analyst turns and effort are bounded. |
 | Independent analysis | Main reads sources once into feature/cross-feature evidence packets; agents return reports without searching, writing, or seeing another analyst's notes |
 | Combining everyone's notes into final documents | Done in the main session, not a subagent, since that's the only place with visibility across all of them |
@@ -16,30 +16,30 @@ This is how Blueprint's methodology connects to Claude Code.
 1. Look through the project for design material.
 2. Run the feature-decomposer agent over it.
 3. Write `intent/BLUEPRINT.md`.
-   Save a compact source inventory and complexity notes in
-   `intent/.work/discovery-summary.md` for the assessor.
+   Save preliminary depth, evidence packets, exact entry snapshots, and
+   source hashes under `intent/.work/` for safe reuse after approval.
 4. Stop, and tell the user to review it before running `/blueprint-continue`.
 
 ## What `/blueprint-continue` does
 
 1. Check `intent/BLUEPRINT.md` is actually approved. If not, stop.
-2. Run scope-assessor once with the approved entries and compact discovery
-   summary, using its configured Haiku model. Validate and save its returned
-   recommendation to `intent/.work/scope-assessment.md`. Missing or invalid
-   assessments default to at least medium, never small.
-    Build feature-specific and cross-feature evidence packets in one source
-    pass, then dispatch all required independent calls together.
-    - Small: main-session analysis covering all four feature roles.
+2. Verify approved entries and source hashes. Reuse unchanged depths and
+   packets; rebuild and assess only stale entries. Missing or invalid
+   assessments default to at least medium, never small. Dispatch all
+   non-cached independent calls together.
+    - Small: direct final-intent synthesis in the main session.
     - Medium: product + requirements and workflow + UX in two parallel
        Haiku calls.
     - Large: all four feature specialists independently in parallel on
        Sonnet.
-   Run dependency-analyst once for two or more features, and
-   contradiction-analyst once for two or more features or evidence conflicts.
+   Run dependency and contradiction analysis only when the evidence
+   signals, or cannot rule out, the concern each role owns.
    Escalate affected features only when later findings require more depth.
 3. Save returned reports, then combine them into one document per feature,
    plus
    `intent-manifest.md`, `evidence.md`, and `decisions.md`.
+   Intents use the compact behavior-first schema, inline evidence IDs, no
+   empty optional sections, and depth-based word targets.
 4. Run intent-critic over the finished set, and check for technical
    language that snuck in.
 5. Go through the final checklist. Fix anything missing.

@@ -21,10 +21,11 @@ middle.
 2. **Review and approve.** You decide whether the feature boundaries are
     right. You can merge, split, rename, remove, or add features. Blueprint
    stops until you approve the blueprint.
-3. **Scope and analyze approved features.** A lightweight scope assessor
-   recommends small, medium, or large analysis depth for each feature.
-   Blueprint performs focused analysis or fans out to specialists as
-   needed, then combines the findings into one intent document per feature.
+3. **Scope and analyze approved features.** Discovery proposes small,
+   medium, or large depth and prepares evidence packets. After approval,
+   unchanged features reuse that work; a lightweight scope assessor checks
+   only changed or unverifiable features. Blueprint then performs focused
+   analysis or fans out as needed.
 4. **Review the result.** A critic subagent examines the completed intent set
     for missing requirements, contradictions, weak assumptions, and other
     quality problems. Blueprint also checks for technical language that does
@@ -40,9 +41,9 @@ specialist for every job. It uses these roles:
 - **Feature Decomposer** identifies feature boundaries from the source
    material. Capabilities that only form a complete, independently useful
    outcome together become one feature and one eventual intent file.
-- **Scope Assessor** uses the approved list and a compact discovery summary
-   to recommend analysis depth. In Claude Code it uses Haiku, read-only
-   tools, and a four-turn budget; it does not rediscover the project.
+- **Scope Assessor** checks only stale, changed, or unverifiable approved
+   entries. In Claude Code it uses Haiku, read-only tools, and a four-turn
+   budget; it does not rediscover the project.
 - **Product Analyst** explains why each feature exists, who it serves, and
    what outcome it should produce.
 - **UX Analyst** examines the user experience, interaction feedback, and
@@ -71,10 +72,11 @@ later findings escalate only the affected feature.
 
 Invoked feature analysts work independently. Each receives its approved
 entry, role instructions, and a self-contained feature evidence packet,
-but not raw project sources or another analyst's notes. The main session
-reads discovered sources once to prepare these packets, dispatches all
-independent work in parallel, and writes returned reports to scratch files.
-The assessor only recommends routing; the main session owns dispatch and
+but not raw project sources or another analyst's notes. Discovery prepares
+the packets and source hashes; continuation rebuilds only stale packets,
+dispatches non-cached independent work in parallel, and writes returned
+reports. Small features go directly to final intent synthesis. The
+assessor only recommends routing; the main session owns dispatch and
 synthesis.
 
 The assessor, decomposer, and medium-depth feature analysts use Haiku.
@@ -82,10 +84,11 @@ Large feature analysis and the critic use Sonnet. Every agent has a
 bounded turn and effort budget. These defaults can still be restricted by
 the models available in your Claude Code organization.
 
-The Dependency Analyst runs once when there are multiple features. The
-Contradiction Analyst runs once for multiple features or conflicting
-evidence, including conflicts within one feature. Skipping either call
-does not remove checks for external prerequisites or internal conflicts.
+The Dependency Analyst runs when evidence indicates or cannot rule out
+shared behavior, ordering, prerequisites, or coupled outcomes. The
+Contradiction Analyst runs when evidence indicates or cannot rule out
+conflicts, overlap, or inconsistent terminology. Skipping either call does
+not remove checks for external prerequisites or internal conflicts.
 An independent critic, evidence tracking, uncertainty handling, technical
 leakage checks, and the quality gate remain mandatory at every depth.
 
@@ -150,6 +153,12 @@ All written to `intent/` in your project:
 The files are produced through the subagent workflow described above. The
 main session owns the synthesis, while the specialist and critic subagents
 provide independent analysis and review.
+
+Intent files are deliberately compact and behavior-first. They combine
+overlapping context, omit empty sections, cite evidence by ID, and avoid
+technical implementation detail. Small, medium, and large intents target
+350, 650, and 1,000 words respectively; completeness takes precedence when
+a distinct journey, state, rule, relationship, or uncertainty needs space.
 
 ## Customizing
 

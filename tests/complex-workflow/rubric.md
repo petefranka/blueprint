@@ -2,7 +2,7 @@
 
 A correct run should:
 - [ ] Represent every distinct state named in the input as a state in the
-      Workflow Analyst output and the intent's Workflows/States sections:
+      Workflow Analyst output and the intent's Journeys or Rules and States:
       Draft/In Progress, Under Review, Documents Requested, Expired,
       Approved, Offer Lapsed, Rejected, Withdrawn, Approved-and-accepted.
 - [ ] Correctly represent Withdraw as available from every non-terminal

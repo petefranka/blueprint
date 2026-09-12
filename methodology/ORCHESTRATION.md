@@ -91,6 +91,9 @@ recommendation controls dispatch; it is not product evidence.
 
 Once all of that is in, combine it into one document per feature. Then:
 
+- Apply the compact intent schema: direct wording, no duplicated ideas,
+  no empty optional sections, inline evidence IDs, and the shortest text
+  that preserves every material behavior and uncertainty.
 - Scan for technical language that shouldn't be there (see
   `validation/tech-leakage-validator.md`) and rewrite it in plain product
   terms.
