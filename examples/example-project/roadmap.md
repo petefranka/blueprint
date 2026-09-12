@@ -1,4 +1,4 @@
-# Feature Map — OrderEase example
+# Roadmap: OrderEase example
 
 Status: APPROVED
 Generated: 2026-09-01

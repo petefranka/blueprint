@@ -13,12 +13,12 @@ This is how Blueprint's methodology maps onto Claude Code.
 
 1. Look through the project for design material.
 2. Run the feature-decomposer agent over it.
-3. Write `intent/feature-map.md`.
+3. Write `intent/roadmap.md`.
 4. Stop, and tell the user to review it before running `/blueprint-continue`.
 
 ## What `/blueprint-continue` does
 
-1. Check `intent/feature-map.md` is actually approved. If not, stop.
+1. Check `intent/roadmap.md` is actually approved. If not, stop.
 2. Run product-analyst, ux-analyst, workflow-analyst, and
    requirements-analyst once per approved feature. Run dependency-analyst
    and contradiction-analyst once, across all approved features together.
@@ -38,7 +38,7 @@ your-project/
 │   ├── commands/     (blueprint.md, blueprint-continue.md)
 │   └── agents/       (the 8 subagents)
 └── intent/
-    ├── feature-map.md
+   ├── roadmap.md
     ├── intent-manifest.md
     ├── evidence.md
     ├── decisions.md

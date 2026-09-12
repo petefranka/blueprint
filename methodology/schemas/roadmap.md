@@ -1,9 +1,9 @@
-# feature-map.md format
+# roadmap.md format
 
 This is the file a human reviews and approves.
 
 ```markdown
-# Feature Map (Proposed)
+# Roadmap (Proposed)
 
 Status: PROPOSED | APPROVED
 
