@@ -17,3 +17,8 @@ To use one: feed `input.md` through Blueprint (`/blueprint`, then
 | `technology-contaminated/` | Technical detail doesn't leak into the output |
 | `contradictory-design/` | Conflicting info gets surfaced, not silently resolved |
 | `complex-workflow/` | A feature with lots of states and failure paths |
+| `scope-routing/` | Adaptive depth, mixed workloads, conservative fallback, and escalation |
+
+The scope-routing fixture supplies an approved set and discovery summary
+directly. Exercise its variants separately and inspect the agent calls as
+well as the final documents; do not run decomposition for that fixture.

@@ -4,6 +4,8 @@ A correct run should:
 - [ ] Produce exactly one feature/intent (this is a single obvious
       capability — over-decomposing into e.g. "email validation" as a
       separate feature is a fail).
+- [ ] Keep entry, validation, submission, and confirmation together as
+      one coherent delivery and therefore one intent file.
 - [ ] Capture both the success path and the invalid-email path in
       Workflows/States.
 - [ ] Not invent an unsubscribe flow, confirmation email, or any capability

@@ -12,6 +12,9 @@ A correct run should:
       workflow (picker → amount → review → confirm), not flattened into a
       single-step description.
 - [ ] Not merge "Settings" into another feature just because it's smaller.
+- [ ] Use independent user value as the delivery test: capabilities that
+      are incomplete alone belong in one intent, while independently
+      useful outcomes remain separate even if released together.
 - [ ] A failure mode to check for: one intent per screen (four screens →
       four intents with no capability-based reasoning) — this indicates
       the decomposer ignored the "capabilities, not screens" rule.

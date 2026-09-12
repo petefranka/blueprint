@@ -5,8 +5,10 @@ This is how Blueprint's methodology connects to Claude Code.
 | Blueprint concept | Claude Code piece |
 |---|---|
 | The two-step approval flow | `/blueprint` and `/blueprint-continue`, in `.claude/commands/` |
-| The eight specialist roles | Subagents in `.claude/agents/`, run one at a time via the Task tool |
-| "Each analyst sees the feature + evidence, but not each other's notes" | Each subagent gets its own isolated context — it genuinely can't see another analyst's output, even if it wanted to |
+| The nine roles | Subagents in `.claude/agents/`; invoke the scope assessor first, then independent specialist calls in parallel via the Task tool |
+| Cheap scope assessment | `scope-assessor` uses Haiku, low effort, read-only tools, and four turns; returns a routing recommendation to the main session |
+| Bounded analysis | Decomposition and medium analysis use Haiku; large analysis and critique use Sonnet. Analyst turns and effort are bounded. |
+| Independent analysis | Main reads sources once into feature/cross-feature evidence packets; agents return reports without searching, writing, or seeing another analyst's notes |
 | Combining everyone's notes into final documents | Done in the main session, not a subagent, since that's the only place with visibility across all of them |
 
 ## What `/blueprint` does
@@ -14,20 +16,36 @@ This is how Blueprint's methodology connects to Claude Code.
 1. Look through the project for design material.
 2. Run the feature-decomposer agent over it.
 3. Write `intent/BLUEPRINT.md`.
+   Save a compact source inventory and complexity notes in
+   `intent/.work/discovery-summary.md` for the assessor.
 4. Stop, and tell the user to review it before running `/blueprint-continue`.
 
 ## What `/blueprint-continue` does
 
 1. Check `intent/BLUEPRINT.md` is actually approved. If not, stop.
-2. Run product-analyst, ux-analyst, workflow-analyst, and
-   requirements-analyst once per approved feature. Run dependency-analyst
-   and contradiction-analyst once, across all approved features together.
-3. Combine all of that into one document per feature, plus
+2. Run scope-assessor once with the approved entries and compact discovery
+   summary, using its configured Haiku model. Validate and save its returned
+   recommendation to `intent/.work/scope-assessment.md`. Missing or invalid
+   assessments default to at least medium, never small.
+    Build feature-specific and cross-feature evidence packets in one source
+    pass, then dispatch all required independent calls together.
+    - Small: main-session analysis covering all four feature roles.
+    - Medium: product + requirements and workflow + UX in two parallel
+       Haiku calls.
+    - Large: all four feature specialists independently in parallel on
+       Sonnet.
+   Run dependency-analyst once for two or more features, and
+   contradiction-analyst once for two or more features or evidence conflicts.
+   Escalate affected features only when later findings require more depth.
+3. Save returned reports, then combine them into one document per feature,
+   plus
    `intent-manifest.md`, `evidence.md`, and `decisions.md`.
 4. Run intent-critic over the finished set, and check for technical
    language that snuck in.
 5. Go through the final checklist. Fix anything missing.
-6. Report back: how many documents were written, and how many open
+   The critic and checks run at every depth.
+6. Report back: chosen depths and escalations, how many documents were
+   written, and how many open
    questions are waiting in `decisions.md`.
 
 ## Where things end up in your project
@@ -36,7 +54,7 @@ This is how Blueprint's methodology connects to Claude Code.
 your-project/
 ├── .claude/
 │   ├── commands/     (blueprint.md, blueprint-continue.md)
-│   └── agents/       (the 8 subagents)
+│   └── agents/       (the 9 subagents)
 └── intent/
    ├── BLUEPRINT.md
     ├── intent-manifest.md
@@ -56,6 +74,6 @@ setup needed.
 
 `methodology/` has nothing Claude-specific in it. To support another
 platform, write a new adapter folder that connects: the two-step approval
-flow onto that platform's pause/resume mechanism, and the eight roles onto
+flow onto that platform's pause/resume mechanism, and the nine roles onto
 whatever sub-agent or persona mechanism it has. Leave `methodology/` and
 `templates/` as they are.

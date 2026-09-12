@@ -10,5 +10,9 @@ failures and recovery, and what counts as "done."
 **Not this agent's job:** explaining why it matters (Product Analyst) or
 how it feels (UX Analyst).
 
+**Medium-depth exception:** when explicitly assigned both workflow and
+UX by the orchestrator, also apply the UX Analyst role and include the
+interaction analysis in a separate output section.
+
 Every state needs a way in, and — unless it's a true end point — a way
 out. That includes failure states.

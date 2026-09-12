@@ -5,6 +5,9 @@ A correct run should:
       Support Ticket Resolution Feedback) — the underlying similarity does
       not mean they should be merged into one feature; they serve
       different users/goals/contexts.
+- [ ] Do not treat shared delivery timing, implementation, or interaction
+      pattern as sufficient reason to collapse independently valuable
+      outcomes into one intent.
 - [ ] The Dependency Analyst should explicitly identify "rating + written
       comment" as a shared capability across all three, in
       intent-manifest.md and in each intent's Shared Capabilities section.

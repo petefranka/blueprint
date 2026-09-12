@@ -9,38 +9,38 @@ source_blueprint_entry:
 
 # INT-XXX: <Name>
 
-## Purpose
+## Outcome
 
-## Problem
+<Who needs what outcome, and why. One short paragraph.>
 
-## Users
+## Behaviour
 
-## Desired Outcome
+- <Observable product behaviour.> [E-XXX]
 
-## User Goals
+## Journeys
 
-## Core Behaviour
+1. <Shortest complete primary path.> [E-XXX]
+- **Alternative or failure:** <Only when materially different.> [E-XXX]
 
-## Workflows
+## Rules and States
 
-## States
+- <Business rule, state, transition, or constraint.> [E-XXX]
 
-## Rules
+## Experience
 
-## Experience Intent
+<Only feedback, clarity, accessibility, or recovery intent that changes
+the user experience.>
 
-## Constraints
+## Relationships
 
-## Dependencies
+- <Dependency or shared capability and affected intent.> [E-XXX]
 
-## Shared Capabilities
+## Uncertainty
 
-## Assumptions
+- **Assumption:** <Minor default and basis.> [E-XXX]
+- **Decision:** DEC-XXX — <Consequential unresolved question.>
+- **Out of scope:** <Relevant boundary clarification.>
 
-## Open Decisions
+## Acceptance
 
-## Out of Scope
-
-## Acceptance Signals
-
-## Evidence
+- <Observable signal that proves the intended outcome.>

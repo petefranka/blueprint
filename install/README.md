@@ -42,7 +42,7 @@ files should be checked into or isolated within one project.
    your-project/
    ├── .claude/
    │   ├── commands/   (blueprint.md, blueprint-continue.md)
-   │   └── agents/     (8 subagents)
+   │   └── agents/     (9 subagents)
    ├── methodology/     (copied in so the above can reference it)
    ├── templates/
    └── intent/          (empty — this is where output goes)

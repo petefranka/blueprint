@@ -21,9 +21,10 @@ middle.
 2. **Review and approve.** You decide whether the feature boundaries are
     right. You can merge, split, rename, remove, or add features. Blueprint
    stops until you approve the blueprint.
-3. **Analyze approved features.** Blueprint starts a group of specialist
-    subagents to study each approved feature from different perspectives.
-    Their findings are combined into one intent document per feature.
+3. **Scope and analyze approved features.** A lightweight scope assessor
+   recommends small, medium, or large analysis depth for each feature.
+   Blueprint performs focused analysis or fans out to specialists as
+   needed, then combines the findings into one intent document per feature.
 4. **Review the result.** A critic subagent examines the completed intent set
     for missing requirements, contradictions, weak assumptions, and other
     quality problems. Blueprint also checks for technical language that does
@@ -33,12 +34,15 @@ middle.
 
 ## The subagent workflow
 
-Blueprint does not ask one general-purpose agent to make every judgment. It
-spins up focused subagents for the parts of the analysis that benefit from
-independent review:
+Blueprint scales analysis to the feature rather than invoking every
+specialist for every job. It uses these roles:
 
 - **Feature Decomposer** identifies feature boundaries from the source
-   material.
+   material. Capabilities that only form a complete, independently useful
+   outcome together become one feature and one eventual intent file.
+- **Scope Assessor** uses the approved list and a compact discovery summary
+   to recommend analysis depth. In Claude Code it uses Haiku, read-only
+   tools, and a four-turn budget; it does not rediscover the project.
 - **Product Analyst** explains why each feature exists, who it serves, and
    what outcome it should produce.
 - **UX Analyst** examines the user experience, interaction feedback, and
@@ -54,15 +58,36 @@ independent review:
 - **Intent Critic** reviews the finished intent set for gaps, unsupported
    assumptions, inconsistent terminology, and missed edge cases.
 
-The feature analysts work independently. Each receives the relevant feature
-and the full evidence pool, but not the notes produced by the other analysts.
-This keeps the perspectives genuinely independent instead of encouraging one
-subagent to echo another.
+| Depth | Feature analysis |
+|---|---|
+| Small | Main session covers all four perspectives in one focused pass. |
+| Medium | Two parallel agents: product + requirements, and workflow + UX. |
+| Large | Four parallel agents: product, UX, workflow, and requirements. |
 
-The cross-feature analysts run once across the complete approved feature set.
-Afterward, the main Blueprint session synthesizes the findings because it is
-the one place that can see every analysis at the same time. The critic then
-reviews that synthesized result before Blueprint reports completion.
+Scope depends on journeys, states, permissions, recovery, dependencies,
+and consequential uncertainty—not feature count alone. Missing evidence
+never defaults to small. Features can take different routes in one run;
+later findings escalate only the affected feature.
+
+Invoked feature analysts work independently. Each receives its approved
+entry, role instructions, and a self-contained feature evidence packet,
+but not raw project sources or another analyst's notes. The main session
+reads discovered sources once to prepare these packets, dispatches all
+independent work in parallel, and writes returned reports to scratch files.
+The assessor only recommends routing; the main session owns dispatch and
+synthesis.
+
+The assessor, decomposer, and medium-depth feature analysts use Haiku.
+Large feature analysis and the critic use Sonnet. Every agent has a
+bounded turn and effort budget. These defaults can still be restricted by
+the models available in your Claude Code organization.
+
+The Dependency Analyst runs once when there are multiple features. The
+Contradiction Analyst runs once for multiple features or conflicting
+evidence, including conflicts within one feature. Skipping either call
+does not remove checks for external prerequisites or internal conflicts.
+An independent critic, evidence tracking, uncertainty handling, technical
+leakage checks, and the quality gate remain mandatory at every depth.
 
 ## What it does not do
 

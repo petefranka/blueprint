@@ -6,7 +6,7 @@ anything is a "no," fix it before calling the run done.
 - Every meaningful feature from the approved list has a document.
 - Feature boundaries still make sense (nothing is secretly two features
   crammed together, or a fragment of a bigger one).
-- User goals are clear in every document.
+- Outcome states who needs what and why in one short paragraph.
 - Important paths are covered, including alternative and failure paths.
 - Important states are covered, including failure/interrupted ones.
 - Business rules are captured where they were evident.
@@ -18,3 +18,13 @@ anything is a "no," fix it before calling the run done.
 - No technology, framework, database, or API is named anywhere.
 - Each document makes sense on its own, without needing anyone to
   explain the design verbally.
+- Every meaningful claim has an inline evidence ID that resolves in
+  `evidence.md`; source prose is not duplicated in the intent.
+- Required sections are present. Empty Relationships or Uncertainty
+  sections are omitted rather than filled with "None."
+- Each statement appears once, in the most useful section. There is no
+  preamble, recap, rationale narration, screen-by-screen retelling, or
+  implementation advice.
+- The document meets its depth budget (Small 350, Medium 650, Large 1,000
+  words), or every excess passage is necessary to preserve distinct
+  behavior or uncertainty.
