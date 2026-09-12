@@ -57,7 +57,20 @@ files should be checked into or isolated within one project.
    /blueprint
    ```
 
-   Review and edit `intent/blueprint.md`, then run:
+   Review each proposed `intent/EV-*/INTENT.md`, then approve it:
+
+   ```
+   /blueprint-signoff EV-001
+   ```
+
+   Or reject it with a concise reason:
+
+   ```
+   /blueprint-reject EV-001 boundary should be split
+   ```
+
+   Sign-off and rejection run no analysts. A rejection preserves `.work/`
+   for revision. Once the intended EVs are approved, run:
 
    ```
    /blueprint-continue

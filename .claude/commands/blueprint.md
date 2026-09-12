@@ -67,8 +67,14 @@ not treat it as the only input; still discover broadly.
 6. **Stop for approval.** Do not run feature analysts or finalize an
    intent. Tell the user which EV folders were created, their preliminary
    depths, and which capabilities were grouped. Ask them to edit each
-   `INTENT.md` as needed and change `status: proposed` to
-   `status: approved`. The exact next command is `/blueprint-continue`.
+   `INTENT.md` as needed, especially Uncertainty, then sign off each one:
+
+   `/blueprint-signoff <EV-ID>`
+
+   Example: `/blueprint-signoff EV-001`. If a proposal is not acceptable,
+   run `/blueprint-reject <EV-ID> <reason>` instead, revise the same file,
+   and sign it off later. After all intended EVs are approved, the next
+   command is `/blueprint-continue`.
 
 Do not continue without approval. If discovery produced multiple coherent
 outcomes, every outcome gets its own EV folder and one `INTENT.md`.

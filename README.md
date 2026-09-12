@@ -11,32 +11,35 @@ engineering decisions for a later stage.
 
 ## How it works
 
-Blueprint uses a two-step workflow with a required human review in the
-middle.
+Blueprint uses three explicit commands:
 
-1. **Discover and blueprint features.** Blueprint examines the available design
-    material, including screenshots, notes, exports, and existing intent
-    documents. It identifies distinct product features and writes them to
-   `intent/blueprint.md`.
-2. **Review and approve.** You decide whether the feature boundaries are
-    right. You can merge, split, rename, remove, or add features. Blueprint
-   stops until you approve the blueprint.
-3. **Scope and analyze approved features.** Discovery proposes small,
-   medium, or large depth and prepares evidence packets. After approval,
-   unchanged features reuse that work; a lightweight scope assessor checks
-   only changed or unverifiable features. Blueprint then performs focused
-   analysis or fans out as needed.
-4. **Review the result.** A critic subagent examines the completed intent set
-    for missing requirements, contradictions, weak assumptions, and other
-    quality problems. Blueprint also checks for technical language that does
-    not belong in product intent documents.
-5. **Record uncertainty.** Anything the evidence cannot settle becomes an
-    open decision or an explicit unknown instead of an invented answer.
+1. **`/blueprint` — discover and propose.** Blueprint examines screenshots,
+   notes, exports, and flows. It creates one proposed
+   `intent/EV-###-short-name/INTENT.md` for each coherent design outcome and
+   then stops. Temporary evidence and routing state live under that EV's
+   `.work/` directory.
+2. **`/blueprint-signoff <EV-ID>` — approve.** You review and edit one
+   proposed intent, including its Uncertainty section. Sign-off validates
+   it and changes only `status: proposed` to `status: approved`. It runs no
+   analysts.
+   If the proposal is not acceptable, run
+   `/blueprint-reject <EV-ID> <reason>` instead. Rejection records the reason,
+   preserves `.work/`, and runs no analysts; edit the same intent and sign
+   it off later.
+3. **`/blueprint-continue` — analyze and finalize.** Blueprint routes every
+   approved EV through Small, Medium, or Large analysis, runs the critic and
+   quality checks, updates the same `INTENT.md`, and deletes `.work/` after
+   success.
+
+The final output is deliberately simple: one EV folder containing one
+visible `INTENT.md`. Evidence references, assumptions, open decisions,
+unknowns, boundaries, dependencies, and shared capabilities all live in
+that file.
 
 ## The subagent workflow
 
-Blueprint scales analysis to the feature rather than invoking every
-specialist for every job. It uses these roles:
+Blueprint scales analysis to each EV instead of invoking every specialist
+for every job. It uses these roles:
 
 - **Feature Decomposer** identifies feature boundaries from the source
    material. Capabilities that only form a complete, independently useful
@@ -59,9 +62,9 @@ specialist for every job. It uses these roles:
 - **Intent Critic** reviews the finished intent set for gaps, unsupported
    assumptions, inconsistent terminology, and missed edge cases.
 
-| Depth | Feature analysis |
+| Depth | Analysis fan-out |
 |---|---|
-| Small | Main session covers all four perspectives in one focused pass. |
+| Small | Main session writes the final intent directly; no feature analyst. |
 | Medium | Two parallel agents: product + requirements, and workflow + UX. |
 | Large | Four parallel agents: product, UX, workflow, and requirements. |
 
@@ -73,9 +76,9 @@ returns a depth recommendation and dependency/contradiction signals; the
 main Blueprint session validates that result and performs the fan-out.
 
 ```text
-Discovery
-   -> proposed depth + evidence packet + source hashes
-   -> human approval
+Discovery creates EV folder
+   -> proposed INTENT.md + temporary .work/
+   -> /blueprint-signoff EV-### (no analysts)
    -> unchanged? reuse proposed depth
    -> changed or unverifiable? Scope Assessor (Haiku)
    -> main session fans out by feature depth
@@ -93,23 +96,21 @@ fan-out. All required feature and cross-feature calls are launched in one
 parallel batch. If analysis reveals more complexity, Blueprint escalates
 only the affected feature and invalidates any shallower cached result.
 
-For an unchanged Small feature, continuation normally invokes only the
-Intent Critic. For a stale feature, the Scope Assessor adds one inexpensive
-Haiku call before the selected route. Cached analyst and critic results are
-reused only when their entry, evidence, instructions, routing policy, and
-saved-output hashes still match.
+For a Small EV, continuation normally invokes only the Intent Critic. The
+Scope Assessor adds one inexpensive Haiku call when the proposal, evidence,
+or source hashes changed after discovery.
 
 Scope depends on journeys, states, permissions, recovery, dependencies,
 and consequential uncertainty—not feature count alone. Missing evidence
 never defaults to small. Features can take different routes in one run;
 later findings escalate only the affected feature.
 
-Invoked feature analysts work independently. Each receives its approved
-entry, role instructions, and a self-contained feature evidence packet,
+Invoked analysts work independently. Each receives its approved intent,
+role instructions, and a self-contained evidence packet,
 but not raw project sources or another analyst's notes. Discovery prepares
 the packets and source hashes; continuation rebuilds only stale packets,
-dispatches non-cached independent work in parallel, and writes returned
-reports. Small features go directly to final intent synthesis. The
+dispatches independent work in parallel, and writes returned reports to
+temporary `.work/`. Small EVs go directly to final intent synthesis. The
 assessor only recommends routing; the main session owns dispatch and
 synthesis.
 
@@ -125,6 +126,10 @@ conflicts, overlap, or inconsistent terminology. Skipping either call does
 not remove checks for external prerequisites or internal conflicts.
 An independent critic, evidence tracking, uncertainty handling, technical
 leakage checks, and the quality gate remain mandatory at every depth.
+
+After successful validation, Blueprint sets `status: reviewed` and removes
+the EV's `.work/` directory. Failed or interrupted runs retain `.work/` so
+they can resume. Original design sources are never removed.
 
 ## What it does not do
 
@@ -185,7 +190,23 @@ Inside your project, in Claude Code:
 /blueprint
 ```
 
-Review and edit `intent/blueprint.md`, then:
+Review a proposed EV intent, then sign it off:
+
+```
+/blueprint-signoff EV-001
+```
+
+Or reject it with a reason:
+
+```
+/blueprint-reject EV-001 boundary should be split into two outcomes
+```
+
+Rejection changes the status to `rejected`, records `rejection_reason` in
+frontmatter, preserves temporary evidence, and runs no analysts. Revise the
+same `INTENT.md`, then run `/blueprint-signoff EV-001` when it is ready.
+
+Repeat sign-off for each EV you want to finalize, then run:
 
 ```
 /blueprint-continue
@@ -197,16 +218,19 @@ same thing.
 
 ## What you get back
 
-All written to `intent/` in your project:
+All final output is written under `intent/`:
 
-- `blueprint.md`: the approved list of features
-- `intents/`: one file per feature
-- `evidence.md`: where each requirement came from
-- `decisions.md`: open questions Blueprint could not answer for you
+```text
+intent/
+├── EV-001-order-cancellation/
+│   └── INTENT.md
+└── EV-002-order-history/
+   └── INTENT.md
+```
 
-The files are produced through the subagent workflow described above. The
-main session owns the synthesis, while the specialist and critic subagents
-provide independent analysis and review.
+During discovery and analysis, each EV temporarily also contains
+`.work/EVIDENCE.md` and `.work/STATE.json`, plus any analyst reports.
+Blueprint deletes `.work/` only after successful validation.
 
 Intent files are deliberately compact and behavior-first. They combine
 overlapping context, omit empty sections, cite evidence by ID, and avoid

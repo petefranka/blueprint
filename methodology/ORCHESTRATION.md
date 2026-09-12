@@ -8,6 +8,16 @@ Blueprint produces one visible intent file for each coherent design outcome.
   -> create intent/EV-###-short-name/INTENT.md
   -> stop for human approval
 
+/blueprint-signoff EV-###
+  -> validate one proposed intent
+  -> set status: approved
+  -> stop without analysis
+
+/blueprint-reject EV-### <reason>
+  -> record why the proposal is not approved
+  -> set status: rejected
+  -> preserve .work/ for revision
+
 /blueprint-continue
   -> analyze each approved EV at the required depth
   -> finalize the same INTENT.md
@@ -42,8 +52,14 @@ intent/EV-001-short-name/
 `INTENT.md` starts with `status: proposed`. It contains the concise outcome,
 scope, preliminary depth, uncertainty, and source references. `.work/`
 contains detailed evidence, source hashes, routing state, and temporary
-analysis. Stop until the human edits the proposal and sets
-`status: approved`.
+analysis. Stop until the human edits the proposal and runs
+`/blueprint-signoff <EV-ID>`. Sign-off validates the proposal, changes only
+its status to `approved`, and runs no analysts.
+
+Use `/blueprint-reject <EV-ID> <reason>` when the boundary or proposal is
+not acceptable. Rejection records the reason in frontmatter, changes the
+status to `rejected`, preserves `.work/`, and runs no analysts. Edit the
+same intent and sign it off when the concern is resolved.
 
 ## Analysis depth
 

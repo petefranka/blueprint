@@ -5,9 +5,10 @@
 id: EV-001
 name: <Design outcome name>
 version: 1
-status: proposed | approved | reviewed
+status: proposed | approved | rejected | reviewed
 depth: small | medium | large
 last_updated: <date>
+rejection_reason: <required only when status is rejected>
 ---
 
 # EV-001: <Name>
@@ -59,6 +60,9 @@ user experience.>
 - Cite meaningful claims inline with E-### IDs. Define each cited ID once
   under Sources with the original path and concise observation.
 - Keep decisions, assumptions, unknowns, and boundaries under Uncertainty.
+- A rejected proposal records `status: rejected` and a concise
+  `rejection_reason` in frontmatter. Remove that field when it is later
+  approved.
 - Write directly without a preamble, recap, analysis narration, or
   screen-by-screen retelling.
 

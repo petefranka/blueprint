@@ -40,6 +40,8 @@ if [ "$1" = "--global" ]; then
 
   echo "Removing global Blueprint installation:"
   remove_file "$CLAUDE_DIR/commands/blueprint.md"
+  remove_file "$CLAUDE_DIR/commands/blueprint-reject.md"
+  remove_file "$CLAUDE_DIR/commands/blueprint-signoff.md"
   remove_file "$CLAUDE_DIR/commands/blueprint-continue.md"
 
   for source in "$SCRIPT_DIR"/.claude/agents/*.md; do

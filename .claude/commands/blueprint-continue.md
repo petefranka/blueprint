@@ -14,8 +14,9 @@ Find `intent/EV-[0-9][0-9][0-9]-*/INTENT.md` files with
 folders unless the user explicitly asks to rerun them.
 
 If none are approved, tell the user to run `/blueprint` or approve a
-proposed `INTENT.md`, then stop. The approved folder name and intent content
-are ground truth. Do not redraw their boundaries.
+proposed `INTENT.md` with `/blueprint-signoff <EV-ID>`, then stop. The
+approved folder name and intent content are ground truth. Do not redraw
+their boundaries.
 
 ## Analyze
 

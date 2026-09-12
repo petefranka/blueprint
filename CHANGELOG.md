@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add `/blueprint-signoff` and `/blueprint-reject` as explicit no-analysis
+  approval checkpoints for individual EV intents.
 - Add a read-only Haiku scope assessor after feature approval, with a
   bounded discovery summary and a four-turn budget.
 - Route each feature through focused, paired, or full specialist analysis

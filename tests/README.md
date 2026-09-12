@@ -5,8 +5,9 @@ code, so there's nothing to run and get a pass/fail from. Instead, each
 folder has a sample input and a checklist for what a correct run should
 and shouldn't produce.
 
-To use one: feed `input.md` through Blueprint (`/blueprint`, then
-`/blueprint-continue`), then check the result against `rubric.md`.
+To use one: run `/blueprint`, review each proposed EV, run
+`/blueprint-signoff EV-###` (or test `/blueprint-reject EV-### <reason>`),
+then run `/blueprint-continue` and check the result against `rubric.md`.
 
 | Folder | What it checks |
 |---|---|
@@ -18,6 +19,7 @@ To use one: feed `input.md` through Blueprint (`/blueprint`, then
 | `contradictory-design/` | Conflicting info gets surfaced, not silently resolved |
 | `complex-workflow/` | A feature with lots of states and failure paths |
 | `scope-routing/` | Adaptive depth, mixed workloads, conservative fallback, and escalation |
+| `signoff/` | Explicit approval/rejection without analysis or content changes |
 
 The scope-routing fixture supplies an approved set and discovery summary
 directly. Exercise its variants separately and inspect the agent calls as
