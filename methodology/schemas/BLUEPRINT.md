@@ -3,7 +3,7 @@
 This is the file a human reviews and approves.
 
 ```markdown
-# BLUEPRINT (Proposed)
+# Blueprint (Proposed)
 
 Status: PROPOSED | APPROVED
 

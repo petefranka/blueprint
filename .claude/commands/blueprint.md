@@ -37,5 +37,5 @@ not treat it as the only input; still discover broadly.
      features, or just approve as-is by setting `Decision: APPROVED`)
    - the exact next command: `/blueprint-continue`
 
-Do not proceed past step 4 even if the proposed BLUEPRINT looks obviously
+Do not proceed past step 4 even if the proposed Blueprint looks obviously
 fine to you. The approval step is not optional.

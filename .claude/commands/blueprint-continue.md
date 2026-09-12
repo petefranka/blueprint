@@ -24,7 +24,7 @@ re-decide boundaries yourself.
    in the order they appear in the approved blueprint.
 
 2. **Phase 4 — Parallel Analysis.** For each feature, invoke these
-   subagents via the Task tool, each with: the approved BLUEPRINT entry
+   subagents via the Task tool, each with: the approved Blueprint entry
    for that feature + the full evidence pool from the original discovery.
    Each writes only to its own file at `intent/.work/<feature-id>/<role>.md`:
    - `product-analyst`
@@ -33,8 +33,8 @@ re-decide boundaries yourself.
    - `requirements-analyst`
 
    Then, once per full approved set (not per feature):
-   - `dependency-analyst` (given the whole approved BLUEPRINT)
-   - `contradiction-analyst` (given the whole approved BLUEPRINT and all
+   - `dependency-analyst` (given the whole approved Blueprint)
+   - `contradiction-analyst` (given the whole approved Blueprint and all
      discovered source material)
 
 3. **Phase 5 — Synthesis.** In this main session (not a subagent), read

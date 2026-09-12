@@ -1,4 +1,4 @@
-# BLUEPRINT (Proposed)
+# Blueprint (Proposed)
 
 Status: PROPOSED
 Generated: <date>
