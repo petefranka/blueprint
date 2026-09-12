@@ -65,6 +65,40 @@ specialist for every job. It uses these roles:
 | Medium | Two parallel agents: product + requirements, and workflow + UX. |
 | Large | Four parallel agents: product, UX, workflow, and requirements. |
 
+### Scope and fan-out
+
+The Scope Assessor is the routing gate for work that changed after
+discovery. It does not analyze the feature or launch agents itself. It
+returns a depth recommendation and dependency/contradiction signals; the
+main Blueprint session validates that result and performs the fan-out.
+
+```text
+Discovery
+   -> proposed depth + evidence packet + source hashes
+   -> human approval
+   -> unchanged? reuse proposed depth
+   -> changed or unverifiable? Scope Assessor (Haiku)
+   -> main session fans out by feature depth
+          Small  -> direct intent synthesis (0 feature-agent calls)
+          Medium -> 2 parallel Haiku calls
+          Large  -> 4 parallel Sonnet calls
+   -> dependency/contradiction agents only when signalled
+   -> Intent Critic (Sonnet)
+   -> quality gate
+```
+
+The routing decision is made independently for every feature, so one
+large feature does not force unrelated small features through the full
+fan-out. All required feature and cross-feature calls are launched in one
+parallel batch. If analysis reveals more complexity, Blueprint escalates
+only the affected feature and invalidates any shallower cached result.
+
+For an unchanged Small feature, continuation normally invokes only the
+Intent Critic. For a stale feature, the Scope Assessor adds one inexpensive
+Haiku call before the selected route. Cached analyst and critic results are
+reused only when their entry, evidence, instructions, routing policy, and
+saved-output hashes still match.
+
 Scope depends on journeys, states, permissions, recovery, dependencies,
 and consequential uncertainty—not feature count alone. Missing evidence
 never defaults to small. Features can take different routes in one run;
