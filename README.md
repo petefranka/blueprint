@@ -14,13 +14,13 @@ engineering decisions for a later stage.
 Blueprint uses a two-step workflow with a required human review in the
 middle.
 
-1. **Discover and map features.** Blueprint examines the available design
+1. **Discover and blueprint features.** Blueprint examines the available design
     material, including screenshots, notes, exports, and existing intent
     documents. It identifies distinct product features and writes them to
-   `intent/roadmap.md`.
+   `intent/BLUEPRINT.md`.
 2. **Review and approve.** You decide whether the feature boundaries are
     right. You can merge, split, rename, remove, or add features. Blueprint
-    stops until you approve the map.
+   stops until you approve the blueprint.
 3. **Analyze approved features.** Blueprint starts a group of specialist
     subagents to study each approved feature from different perspectives.
     Their findings are combined into one intent document per feature.
@@ -91,7 +91,7 @@ Inside your project, in Claude Code:
 /blueprint
 ```
 
-Review and edit `intent/roadmap.md`, then:
+Review and edit `intent/BLUEPRINT.md`, then:
 
 ```
 /blueprint-continue
@@ -105,7 +105,7 @@ same thing.
 
 All written to `intent/` in your project:
 
-- `roadmap.md`: the approved list of features
+- `BLUEPRINT.md`: the approved list of features
 - `intents/`: one file per feature
 - `evidence.md`: where each requirement came from
 - `decisions.md`: open questions Blueprint could not answer for you

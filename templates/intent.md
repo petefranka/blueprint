@@ -4,7 +4,7 @@ name:
 version: 1
 status: draft
 last_updated:
-source_feature_map_entry:
+source_blueprint_entry:
 ---
 
 # INT-XXX: <Name>

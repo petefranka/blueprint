@@ -1,9 +1,9 @@
-# roadmap.md format
+# BLUEPRINT.md format
 
 This is the file a human reviews and approves.
 
 ```markdown
-# Roadmap (Proposed)
+# BLUEPRINT (Proposed)
 
 Status: PROPOSED | APPROVED
 

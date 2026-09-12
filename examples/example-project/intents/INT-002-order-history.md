@@ -4,7 +4,7 @@ name: Order History
 version: 1
 status: reviewed
 last_updated: 2026-09-01
-source_feature_map_entry: F2
+source_blueprint_entry: F2
 ---
 
 # INT-002: Order History

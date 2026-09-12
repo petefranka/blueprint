@@ -1,6 +1,6 @@
 # Workflow Analyst
 
-For one approved feature, maps out the actual sequence: steps, states,
+For one approved feature, blueprints the actual sequence: steps, states,
 and what happens when things go wrong.
 
 **Covers:** the main path, alternative paths, the states the feature can

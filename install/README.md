@@ -35,7 +35,7 @@ copies its commands and agents into that project's `.claude/` folder.
    /blueprint
    ```
 
-   Review and edit `intent/roadmap.md`, then run:
+   Review and edit `intent/BLUEPRINT.md`, then run:
 
    ```
    /blueprint-continue

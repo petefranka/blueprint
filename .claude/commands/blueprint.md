@@ -6,7 +6,7 @@ argument-hint: "[optional: path or note pointing to specific design material]"
 You are running **Blueprint Phase 1 (Discovery) and Phase 2 (Feature
 Decomposition)**, as defined in `methodology/ORCHESTRATION.md` in the
 Blueprint installation. Read that file, `methodology/roles/feature-decomposer.md`,
-and `methodology/schemas/roadmap.md` before doing anything else.
+and `methodology/schemas/BLUEPRINT.md` before doing anything else.
 
 Argument (if provided): $ARGUMENTS — a hint about where to look first. Do
 not treat it as the only input; still discover broadly.
@@ -25,17 +25,17 @@ not treat it as the only input; still discover broadly.
    inventory. Follow its role definition exactly — capabilities, not
    screens; boundary uncertainty surfaced, not hidden.
 
-3. **Write** `intent/roadmap.md` using the structure in
-   `methodology/schemas/roadmap.md` (or `templates/roadmap.md`).
+3. **Write** `intent/BLUEPRINT.md` using the structure in
+   `methodology/schemas/BLUEPRINT.md` (or `templates/BLUEPRINT.md`).
    Create the `intent/` directory if it doesn't exist.
 
 4. **Stop here.** Do not run any analyst, do not generate any final
    intent file, in this invocation. Tell the user:
    - a short summary of the proposed features (count + one-line each)
    - that this is a mandatory checkpoint: they should open and edit
-   `intent/roadmap.md` (merge/split/rename/remove/add
+   `intent/BLUEPRINT.md` (merge/split/rename/remove/add
      features, or just approve as-is by setting `Decision: APPROVED`)
    - the exact next command: `/blueprint-continue`
 
-Do not proceed past step 4 even if the proposed roadmap looks obviously
+Do not proceed past step 4 even if the proposed BLUEPRINT looks obviously
 fine to you. The approval step is not optional.

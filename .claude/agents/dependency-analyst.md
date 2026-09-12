@@ -12,7 +12,7 @@ shared reasoning rule and Decision/Assumption/Unknown sorting rule in
 `methodology/ORCHESTRATION.md`. Follow them exactly — they define what
 you own, what you must not do, and how to tag every claim.
 
-You will be given, in your invocation prompt: the approved roadmap
+You will be given, in your invocation prompt: the approved BLUEPRINT
 entry (or entries, if you are a cross-feature role) you are analyzing, and
 the full pool of discovered source evidence. You do not have access to any
 other analyst's output, and you should not try to guess at it — that

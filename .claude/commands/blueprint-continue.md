@@ -1,5 +1,5 @@
 ---
-description: "Resume Blueprint after the human has approved/edited intent/roadmap.md. Runs parallel specialist analysis, synthesizes intent files, validates for technology leakage, and runs the quality gate. Second and final step of the Blueprint product-intent pipeline."
+description: "Resume Blueprint after the human has approved/edited intent/BLUEPRINT.md. Runs parallel specialist analysis, synthesizes intent files, validates for technology leakage, and runs the quality gate. Second and final step of the Blueprint product-intent pipeline."
 ---
 
 You are running **Blueprint Phases 3-7**, as defined in
@@ -10,21 +10,21 @@ file in full before doing anything else, along with every file in
 
 ## Preconditions
 
-Read `intent/roadmap.md`. If it doesn't exist, tell the user to run
+Read `intent/BLUEPRINT.md`. If it doesn't exist, tell the user to run
 `/blueprint` first. If its `Decision:` field is not `APPROVED` or
 `APPROVED WITH CHANGES`, stop and tell the user to approve it first — do
-not proceed on a proposed-but-unapproved map.
+not proceed on a proposed-but-unapproved blueprint.
 
-Treat whatever is currently in `roadmap.md` as ground truth. Do not
+Treat whatever is currently in `BLUEPRINT.md` as ground truth. Do not
 re-decide boundaries yourself.
 
 ## Do this now
 
 1. Assign final IDs (`INT-001`, `INT-002`, ...) to each approved feature,
-   in the order they appear in the approved map.
+   in the order they appear in the approved blueprint.
 
 2. **Phase 4 — Parallel Analysis.** For each feature, invoke these
-   subagents via the Task tool, each with: the approved roadmap entry
+   subagents via the Task tool, each with: the approved BLUEPRINT entry
    for that feature + the full evidence pool from the original discovery.
    Each writes only to its own file at `intent/.work/<feature-id>/<role>.md`:
    - `product-analyst`
@@ -33,8 +33,8 @@ re-decide boundaries yourself.
    - `requirements-analyst`
 
    Then, once per full approved set (not per feature):
-   - `dependency-analyst` (given the whole approved roadmap)
-   - `contradiction-analyst` (given the whole approved roadmap and all
+   - `dependency-analyst` (given the whole approved BLUEPRINT)
+   - `contradiction-analyst` (given the whole approved BLUEPRINT and all
      discovered source material)
 
 3. **Phase 5 — Synthesis.** In this main session (not a subagent), read

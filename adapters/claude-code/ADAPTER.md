@@ -1,6 +1,6 @@
 # Claude Code adapter
 
-This is how Blueprint's methodology maps onto Claude Code.
+This is how Blueprint's methodology connects to Claude Code.
 
 | Blueprint concept | Claude Code piece |
 |---|---|
@@ -13,12 +13,12 @@ This is how Blueprint's methodology maps onto Claude Code.
 
 1. Look through the project for design material.
 2. Run the feature-decomposer agent over it.
-3. Write `intent/roadmap.md`.
+3. Write `intent/BLUEPRINT.md`.
 4. Stop, and tell the user to review it before running `/blueprint-continue`.
 
 ## What `/blueprint-continue` does
 
-1. Check `intent/roadmap.md` is actually approved. If not, stop.
+1. Check `intent/BLUEPRINT.md` is actually approved. If not, stop.
 2. Run product-analyst, ux-analyst, workflow-analyst, and
    requirements-analyst once per approved feature. Run dependency-analyst
    and contradiction-analyst once, across all approved features together.
@@ -38,7 +38,7 @@ your-project/
 │   ├── commands/     (blueprint.md, blueprint-continue.md)
 │   └── agents/       (the 8 subagents)
 └── intent/
-   ├── roadmap.md
+   ├── BLUEPRINT.md
     ├── intent-manifest.md
     ├── evidence.md
     ├── decisions.md
@@ -55,7 +55,7 @@ setup needed.
 ## Porting to another platform
 
 `methodology/` has nothing Claude-specific in it. To support another
-platform, write a new adapter folder that maps: the two-step approval
+platform, write a new adapter folder that connects: the two-step approval
 flow onto that platform's pause/resume mechanism, and the eight roles onto
 whatever sub-agent or persona mechanism it has. Leave `methodology/` and
 `templates/` as they are.
