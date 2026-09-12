@@ -83,6 +83,18 @@ reviews that synthesized result before Blueprint reports completion.
 This copies Blueprint's commands and subagent definitions into that
 project's `.claude/` folder.
 
+To install the Claude Code commands globally so they are available from any
+project, run:
+
+```bash
+./install/install-global.sh
+```
+
+The global installer places commands and subagents in `~/.claude/` and keeps
+their methodology and templates in `~/.claude/blueprint/`. It does not copy
+files into individual projects. Blueprint still writes generated `intent/`
+documents to the project you are working in.
+
 ## Use
 
 Inside your project, in Claude Code:

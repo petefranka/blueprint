@@ -1,9 +1,31 @@
 # Installing Blueprint
 
-Blueprint installs *into* whatever project you want to analyze — it
-copies its commands and agents into that project's `.claude/` folder.
+Blueprint can be installed globally for Claude Code or into one project.
 
-## Steps
+## Global installation
+
+To make Blueprint available from every project, run this command from the
+Blueprint repository:
+
+```bash
+./install/install-global.sh
+```
+
+This installs the commands and agents into `~/.claude/` and stores the shared
+methodology and templates in `~/.claude/blueprint/`. It does not add files to
+any project. Open any project in Claude Code and run:
+
+```
+/blueprint
+```
+
+Generated `intent/` files are written to the project you are currently
+working in.
+
+## Project-local installation
+
+Use the project-local installer when the Blueprint commands and supporting
+files should be checked into or isolated within one project.
 
 1. Download or clone this repo somewhere, e.g. `~/tools/blueprint`.
 2. Run the install script against your project:
