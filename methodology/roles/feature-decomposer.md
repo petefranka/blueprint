@@ -1,11 +1,11 @@
 # Feature Decomposer
 
-Looks at all the available design material and proposes a list of
-distinct product features.
+Looks at all available design material and proposes coherent design
+outcomes, each represented by one EV folder and one intent file.
 
 **Rules**
-- A feature is a capability, not a screen. One feature can span several
-  screens; one screen can hold several features.
+- A design outcome is a capability, not a screen. One outcome can span
+  several screens; one screen can hold several outcomes.
 - Prefer one feature, and therefore one eventual intent file, when the
   evidence shows capabilities are normally delivered, accepted, and used
   as one coherent user outcome. Merge them when separating either part
@@ -15,7 +15,7 @@ distinct product features.
   or they need materially different approval or lifecycle decisions.
   Sharing a screen, data, visual pattern, or implementation does not by
   itself justify merging them.
-- For each feature, note: name, purpose, who it's for, the outcome it
+- For each outcome, note: name, purpose, who it's for, the result it
   should produce, where the evidence came from, confidence, likely
   dependencies, why it is one independently deliverable outcome, and
   anything uncertain about the boundary itself.
@@ -37,6 +37,6 @@ distinct product features.
 **Not this agent's job:** writing requirements, workflows, or UX detail.
 That only happens after a human approves the feature list.
 
-**Output:** a proposed Blueprint entry per feature, including preliminary
-analysis depth and reason. The main session writes files and evidence
-packets after receiving the proposal.
+**Output:** one proposed EV outcome with preliminary analysis depth and
+reason for each coherent delivery. The main session creates each folder,
+proposal, and temporary evidence packet.

@@ -10,6 +10,7 @@ CLAUDE_DIR="${HOME}/.claude"
 SUPPORT_DIR="$CLAUDE_DIR/blueprint"
 
 mkdir -p "$CLAUDE_DIR/commands" "$CLAUDE_DIR/agents"
+rm -rf "$SUPPORT_DIR"
 mkdir -p "$SUPPORT_DIR/methodology" "$SUPPORT_DIR/templates"
 
 cp -f "$SCRIPT_DIR"/.claude/commands/*.md "$CLAUDE_DIR/commands/"

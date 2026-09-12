@@ -1,30 +1,25 @@
-# Final check before finishing a run
+# Final intent check
 
-Go through this list against the whole set of feature documents. If
-anything is a "no," fix it before calling the run done.
+Before deleting `.work/`, verify:
 
-- Every meaningful feature from the approved list has a document.
-- Feature boundaries still make sense (nothing is secretly two features
-  crammed together, or a fragment of a bigger one).
-- Outcome states who needs what and why in one short paragraph.
-- Important paths are covered, including alternative and failure paths.
-- Important states are covered, including failure/interrupted ones.
-- Business rules are captured where they were evident.
-- Assumptions are clearly marked as assumptions, not stated as fact.
-- Unknowns are clearly marked, not silently left out.
-- Unresolved questions are in `decisions.md`, not invented.
-- Dependencies between features are noted.
-- The same requirement isn't repeated differently across documents.
-- No technology, framework, database, or API is named anywhere.
-- Each document makes sense on its own, without needing anyone to
-  explain the design verbally.
-- Every meaningful claim has an inline evidence ID that resolves in
-  `evidence.md`; source prose is not duplicated in the intent.
-- Required sections are present. Empty Relationships or Uncertainty
-  sections are omitted rather than filled with "None."
-- Each statement appears once, in the most useful section. There is no
-  preamble, recap, rationale narration, screen-by-screen retelling, or
-  implementation advice.
-- The document meets its depth budget (Small 350, Medium 650, Large 1,000
-  words), or every excess passage is necessary to preserve distinct
-  behavior or uncertainty.
+- The file path matches `intent/EV-###-<slug>/INTENT.md` and its frontmatter
+  uses the same EV ID.
+- The EV represents one coherent, independently deliverable outcome.
+- Outcome says who needs what and why.
+- Important primary, alternative, failure, interrupted, and recovery paths
+  are covered without repetition.
+- Important states, transitions, and business rules are explicit.
+- Assumptions, decisions, unknowns, and boundaries are correctly labelled.
+- Dependencies and shared capabilities name affected EVs where applicable.
+- Every meaningful claim cites an E-### ID defined exactly once in Sources.
+- Source references point to original design material and do not invent
+  evidence.
+- No technology, framework, database, API, architecture, or implementation
+  choice appears in product behavior.
+- Required sections are present; empty optional sections are omitted.
+- There is no preamble, recap, process narration, filler, or duplicated idea.
+- The file is understandable without opening the original design.
+- It meets its depth word target, or every excess passage preserves distinct
+  material behavior or uncertainty.
+- `status: reviewed` is set only after critic and validation pass.
+- The EV folder contains only `INTENT.md` after successful cleanup.

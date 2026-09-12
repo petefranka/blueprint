@@ -1,12 +1,12 @@
 ---
-description: "Discover product design material in this project and propose feature/capability boundaries for human approval. First step of the Blueprint product-intent pipeline. Also matches: 'turn this design into product intents', 'run blueprint against this project', 'analyse the current design and identify the product capabilities'."
+description: "Discover product design material and create one proposed INTENT.md per coherent design outcome for human approval. First step of the Blueprint workflow."
 argument-hint: "[optional: path or note pointing to specific design material]"
 ---
 
-You are running **Blueprint Phase 1 (Discovery) and Phase 2 (Feature
-Decomposition)**, as defined in `methodology/ORCHESTRATION.md` in the
-Blueprint installation. Read that file, `methodology/roles/feature-decomposer.md`,
-and `methodology/schemas/BLUEPRINT.md` before doing anything else.
+You are running Blueprint discovery and proposal, as defined in
+`methodology/ORCHESTRATION.md`. Read that file,
+`methodology/roles/feature-decomposer.md`, and
+`methodology/schemas/intent-schema.md` before doing anything else.
 
 Argument (if provided): $ARGUMENTS — a hint about where to look first. Do
 not treat it as the only input; still discover broadly.
@@ -20,55 +20,55 @@ not treat it as the only input; still discover broadly.
    find nothing usable, stop and tell the user what kind of input you
    need — do not guess at a product from nothing.
 
-2. **Feature Decomposition**: invoke the `feature-decomposer` subagent
-   (Task tool, `subagent_type: feature-decomposer`) with the discovery
-   inventory and compact evidence summary.
-   Follow its role definition exactly — capabilities, not
-   screens; one eventual intent for capabilities that clearly form one
-   independently deliverable outcome; boundary uncertainty surfaced, not
-   hidden. Use its configured Haiku model. The subagent returns its
-   proposal; write it to `intent/.work/feature-decomposition.md` yourself.
+2. **Identify design outcomes.** Invoke `feature-decomposer` once with the
+   discovery inventory and a compact evidence summary. A design outcome is
+   a coherent capability that can be delivered and accepted as one unit.
+   Capabilities incomplete without each other belong together. Unrelated,
+   independently valuable outcomes become separate design outcomes even if
+   they share a screen or implementation.
 
-3. **Write** `intent/BLUEPRINT.md` using the structure in
-   `methodology/schemas/BLUEPRINT.md` (or `templates/BLUEPRINT.md`).
-   Create the `intent/` directory if it doesn't exist.
+3. **Create one folder per outcome.** Under `intent/`, assign the next
+   unused sequential ID and a short lowercase ASCII slug:
 
-   Also save `intent/.work/discovery-summary.md` for continuation: a
-   compact source inventory with paths, plus short notes on known
-   journeys, states, actors, dependencies, conflicts, and missing
-   material per proposed feature. Do not copy raw evidence or perform
-   detailed analysis. This is a discovery aid, not an approved boundary
-   list; continuation must reconcile it with the approved Blueprint.
+   `EV-001-short-summary-of-design-work`
 
-    Reuse the discovery reads now instead of reopening sources later:
-    - Write one self-contained packet per proposed feature to
-       `intent/.work/evidence-packets/F<N>.md`. Include only relevant
-       observed facts or necessary short excerpts, exact source paths,
-       conflicts, missing material, and enough context to preserve meaning.
-    - Write `intent/.work/evidence-packets/cross-feature.md` with only
-       evidence about shared capabilities, dependencies, ordering, overlap,
-       and conflicts between proposed features.
-    - Write `intent/.work/discovery-state.md` containing the exact text of
-       each proposed Blueprint entry, its packet path, and a SHA-256 hash for
-       every referenced source as it existed during discovery. Hash binary
-       sources too. Mark inaccessible or unhashable sources explicitly.
+   Never reuse an EV number. Determine the next number from all existing
+   `intent/EV-*` folders. Create exactly these files initially:
 
-    Do not discard evidence to force a cheaper depth. The packet and hashes
-    are cache inputs, not product conclusions. A preliminary route is
-    reusable only when its approved entry and every referenced source hash
-    are unchanged.
+   ```text
+   intent/EV-001-short-summary/
+   ├── INTENT.md
+   └── .work/
+       ├── EVIDENCE.md
+       └── STATE.json
+   ```
 
-4. **Stop here.** Do not run any analyst, do not generate any final
-   intent file, in this invocation. Tell the user:
-   - a short summary of the proposed features (count + one-line each)
-    - which capabilities were deliberately grouped into one eventual
-       intent because they form one coherent delivery, if any
-    - the preliminary depth per feature, noting that continuation rechecks
-       changed entries or evidence
-   - that this is a mandatory checkpoint: they should open and edit
-   `intent/BLUEPRINT.md` (merge/split/rename/remove/add
-     features, or just approve as-is by setting `Decision: APPROVED`)
-   - the exact next command: `/blueprint-continue`
+   Do not create `blueprint.md`, `evidence.md`, `decisions.md`, a manifest,
+   an `intents/` directory, discovery summaries, discovery-state files, or
+   feature-decomposition files.
 
-Do not proceed past step 4 even if the proposed Blueprint looks obviously
-fine to you. The approval step is not optional.
+4. **Write the proposal in `INTENT.md`.** Follow
+   `methodology/schemas/intent-schema.md`. Set `status: proposed`, include
+   the preliminary Small/Medium/Large depth, and populate only evidence-
+   supported content. The same file is the approval checkpoint and later
+   becomes the final intent. Put open decisions, assumptions, unknowns,
+   and boundaries under Uncertainty. Put compact source references under
+   Sources.
+
+5. **Write temporary working state.** `EVIDENCE.md` contains the detailed
+   evidence packet used by analysts: observed facts, necessary short
+   excerpts, exact source paths, conflicts, and missing material. Assign
+   stable E-### IDs that match the Sources section in `INTENT.md`.
+   `STATE.json` contains the preliminary route, source SHA-256 hashes,
+   cross-outcome signals, and later analysis hashes/results. Hash text and
+   binary sources; mark inaccessible sources. These files are temporary
+   and are removed only after successful continuation.
+
+6. **Stop for approval.** Do not run feature analysts or finalize an
+   intent. Tell the user which EV folders were created, their preliminary
+   depths, and which capabilities were grouped. Ask them to edit each
+   `INTENT.md` as needed and change `status: proposed` to
+   `status: approved`. The exact next command is `/blueprint-continue`.
+
+Do not continue without approval. If discovery produced multiple coherent
+outcomes, every outcome gets its own EV folder and one `INTENT.md`.

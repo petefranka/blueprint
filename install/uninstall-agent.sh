@@ -77,6 +77,20 @@ else
       remove_file "$TARGET/$source_root/$relative_path"
     done < <(find "$SCRIPT_DIR/$source_root" -type f -print0)
   done
+
+  # Remove files installed by earlier Blueprint output models.
+  for legacy_file in \
+    methodology/schemas/BLUEPRINT.md \
+    methodology/schemas/blueprint.md \
+    methodology/schemas/decision-model.md \
+    methodology/schemas/evidence-model.md \
+    templates/BLUEPRINT.md \
+    templates/blueprint.md \
+    templates/decisions.md \
+    templates/evidence.md \
+    templates/intent-manifest.md; do
+    remove_file "$TARGET/$legacy_file"
+  done
 fi
 
 echo "Blueprint uninstall complete. Generated intent files were preserved."

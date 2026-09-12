@@ -1,47 +1,46 @@
 ---
-id: INT-XXX
+id: EV-XXX
 name:
 version: 1
-status: draft
+status: proposed
+depth: small | medium | large
 last_updated:
-source_blueprint_entry:
 ---
 
-# INT-XXX: <Name>
+# EV-XXX: <Name>
 
 ## Outcome
 
-<Who needs what outcome, and why. One short paragraph.>
+<Who needs what outcome, and why.>
 
 ## Behaviour
 
-- <Observable product behaviour.> [E-XXX]
+- <Observable product behaviour.> [E-001]
 
 ## Journeys
 
-1. <Shortest complete primary path.> [E-XXX]
-- **Alternative or failure:** <Only when materially different.> [E-XXX]
+1. <Shortest complete primary path.> [E-001]
 
 ## Rules and States
 
-- <Business rule, state, transition, or constraint.> [E-XXX]
+- <Material rule, state, transition, or constraint.> [E-001]
 
 ## Experience
 
-<Only feedback, clarity, accessibility, or recovery intent that changes
-the user experience.>
+<Material feedback, clarity, accessibility, or recovery intent.>
 
 ## Relationships
 
-- <Dependency or shared capability and affected intent.> [E-XXX]
+- <Dependency or shared capability and affected EV.> [E-001]
 
 ## Uncertainty
 
-- **Assumption:** <Minor default and basis.> [E-XXX]
-- **Decision:** DEC-XXX — <Consequential unresolved question.>
-- **Unknown:** <Low-impact fact the evidence cannot establish.> [E-XXX]
-- **Out of scope:** <Relevant boundary clarification.>
+- **Decision:** <Consequential unresolved question.> [E-001]
 
 ## Acceptance
 
 - <Observable signal that proves the intended outcome.>
+
+## Sources
+
+- **E-001** — `<path>`: <concise supporting observation>.

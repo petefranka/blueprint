@@ -17,7 +17,7 @@ middle.
 1. **Discover and blueprint features.** Blueprint examines the available design
     material, including screenshots, notes, exports, and existing intent
     documents. It identifies distinct product features and writes them to
-   `intent/BLUEPRINT.md`.
+   `intent/blueprint.md`.
 2. **Review and approve.** You decide whether the feature boundaries are
     right. You can merge, split, rename, remove, or add features. Blueprint
    stops until you approve the blueprint.
@@ -185,7 +185,7 @@ Inside your project, in Claude Code:
 /blueprint
 ```
 
-Review and edit `intent/BLUEPRINT.md`, then:
+Review and edit `intent/blueprint.md`, then:
 
 ```
 /blueprint-continue
@@ -199,7 +199,7 @@ same thing.
 
 All written to `intent/` in your project:
 
-- `BLUEPRINT.md`: the approved list of features
+- `blueprint.md`: the approved list of features
 - `intents/`: one file per feature
 - `evidence.md`: where each requirement came from
 - `decisions.md`: open questions Blueprint could not answer for you

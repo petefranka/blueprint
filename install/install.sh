@@ -29,6 +29,19 @@ cp -f "$SCRIPT_DIR"/.claude/agents/*.md "$TARGET/.claude/agents/"
 # relative to the target project. Adjust the destination if your project
 # already has a convention for vendored docs.
 mkdir -p "$TARGET/methodology" "$TARGET/templates"
+
+# Remove files installed by the former multi-file output model.
+rm -f \
+  "$TARGET/methodology/schemas/BLUEPRINT.md" \
+  "$TARGET/methodology/schemas/blueprint.md" \
+  "$TARGET/methodology/schemas/decision-model.md" \
+  "$TARGET/methodology/schemas/evidence-model.md" \
+  "$TARGET/templates/BLUEPRINT.md" \
+  "$TARGET/templates/blueprint.md" \
+  "$TARGET/templates/decisions.md" \
+  "$TARGET/templates/evidence.md" \
+  "$TARGET/templates/intent-manifest.md"
+
 cp -rf "$SCRIPT_DIR"/methodology/. "$TARGET/methodology/"
 cp -rf "$SCRIPT_DIR"/templates/. "$TARGET/templates/"
 
@@ -44,4 +57,4 @@ echo ""
 echo "Next steps, inside Claude Code at $TARGET:"
 echo "  1. Add your design material (screenshots, notes, exports) to the project."
 echo "  2. Run:  /blueprint"
-echo "  3. Review/edit intent/BLUEPRINT.md, then run:  /blueprint-continue"
+echo "  3. Review each intent/EV-*/INTENT.md, set status: approved, then run: /blueprint-continue"

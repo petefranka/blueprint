@@ -1,6 +1,6 @@
 ---
 name: feature-decomposer
-description: "Identifies distinct product capabilities from discovered source material and proposes feature boundaries for human approval. Use only for Blueprint Phase 2."
+description: "Identifies coherent, independently deliverable design outcomes and proposes one EV intent per outcome for human approval."
 tools: Read
 model: haiku
 effort: medium
@@ -15,5 +15,5 @@ them exactly.
 
 Your invocation supplies the discovery inventory and compact evidence
 summary. Use only those inputs; do not repeat repository discovery.
-Return your proposed decomposition to the main session. Do not write
+Return the proposed EV outcomes to the main session. Do not write
 files or generate final deliverables.

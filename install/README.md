@@ -57,7 +57,7 @@ files should be checked into or isolated within one project.
    /blueprint
    ```
 
-   Review and edit `intent/BLUEPRINT.md`, then run:
+   Review and edit `intent/blueprint.md`, then run:
 
    ```
    /blueprint-continue

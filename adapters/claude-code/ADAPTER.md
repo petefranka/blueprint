@@ -15,14 +15,14 @@ This is how Blueprint's methodology connects to Claude Code.
 
 1. Look through the project for design material.
 2. Run the feature-decomposer agent over it.
-3. Write `intent/BLUEPRINT.md`.
+3. Write `intent/blueprint.md`.
    Save preliminary depth, evidence packets, exact entry snapshots, and
    source hashes under `intent/.work/` for safe reuse after approval.
 4. Stop, and tell the user to review it before running `/blueprint-continue`.
 
 ## What `/blueprint-continue` does
 
-1. Check `intent/BLUEPRINT.md` is actually approved. If not, stop.
+1. Check `intent/blueprint.md` is actually approved. If not, stop.
 2. Verify approved entries and source hashes. Reuse unchanged depths and
    packets; rebuild and assess only stale entries. Missing or invalid
    assessments default to at least medium, never small. Dispatch all
@@ -56,7 +56,7 @@ your-project/
 │   ├── commands/     (blueprint.md, blueprint-continue.md)
 │   └── agents/       (the 9 subagents)
 └── intent/
-   ├── BLUEPRINT.md
+   ├── blueprint.md
     ├── intent-manifest.md
     ├── evidence.md
     ├── decisions.md
