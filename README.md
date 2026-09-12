@@ -157,25 +157,24 @@ their methodology and templates in `~/.claude/blueprint/`. It does not copy
 files into individual projects. Blueprint still writes generated `intent/`
 documents to the project you are working in.
 
-### Uninstall one agent
+### Uninstall Blueprint
 
-Remove a project-local agent by name:
-
-```bash
-./install/uninstall-agent.sh scope-assessor /path/to/your-project
-```
-
-Remove a globally installed agent:
+Remove Blueprint from one project:
 
 ```bash
-./install/uninstall-agent.sh --global scope-assessor
+./install/uninstall-agent.sh /path/to/your/project
 ```
 
-The script accepts lowercase letters, numbers, and hyphens in an agent
-name, removes only the exact `.md` file, and leaves methodology and
-generated `intent/` files untouched. It warns when an installed command
-still references the removed agent. Update that command or reinstall
-Blueprint before running the affected workflow. Start a new Claude Code
+Remove the global installation:
+
+```bash
+./install/uninstall-agent.sh --global
+```
+
+The script removes Blueprint's commands, all Blueprint agents, and its
+installed methodology and templates. It removes only paths represented by
+this Blueprint source tree, refuses to target the source repository, and
+always leaves generated `intent/` files untouched. Start a new Claude Code
 session after removal.
 
 ## Use

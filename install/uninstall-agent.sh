@@ -1,74 +1,83 @@
 #!/usr/bin/env bash
-# Removes one Claude Code agent definition from a project or global install.
+# Uninstalls Blueprint from one project or from the global Claude Code setup.
+# Generated intent files are never removed.
 #
 # Usage:
-#   ./install/uninstall-agent.sh <agent-name> [project-directory]
-#   ./install/uninstall-agent.sh --global <agent-name>
+#   ./install/uninstall-agent.sh /path/to/project
+#   ./install/uninstall-agent.sh --global
 
 set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 usage() {
   cat <<'EOF'
 Usage:
-  uninstall-agent.sh <agent-name> [project-directory]
-  uninstall-agent.sh --global <agent-name>
+  uninstall-agent.sh <project-directory>
+  uninstall-agent.sh --global
 
 Examples:
-  uninstall-agent.sh scope-assessor /path/to/project
-  uninstall-agent.sh --global scope-assessor
+  uninstall-agent.sh /path/to/project
+  uninstall-agent.sh --global
 EOF
 }
 
-if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+remove_file() {
+  local file="$1"
+  if [ -f "$file" ]; then
+    rm -- "$file"
+    echo "  Removed: $file"
+  fi
+}
+
+if [ "$#" -ne 1 ]; then
   usage >&2
   exit 2
 fi
 
 if [ "$1" = "--global" ]; then
-  if [ "$#" -ne 2 ]; then
-    usage >&2
-    exit 2
-  fi
-  AGENT_NAME="$2"
   CLAUDE_DIR="${HOME}/.claude"
-  SCOPE="global"
+
+  echo "Removing global Blueprint installation:"
+  remove_file "$CLAUDE_DIR/commands/blueprint.md"
+  remove_file "$CLAUDE_DIR/commands/blueprint-continue.md"
+
+  for source in "$SCRIPT_DIR"/.claude/agents/*.md; do
+    remove_file "$CLAUDE_DIR/agents/$(basename "$source")"
+  done
+
+  if [ -d "$CLAUDE_DIR/blueprint" ]; then
+    rm -rf -- "$CLAUDE_DIR/blueprint"
+    echo "  Removed: $CLAUDE_DIR/blueprint"
+  fi
 else
-  AGENT_NAME="$1"
-  TARGET="${2:-.}"
+  TARGET="$1"
   if [ ! -d "$TARGET" ]; then
     echo "Target project directory does not exist: $TARGET" >&2
     exit 1
   fi
   TARGET="$(cd "$TARGET" && pwd)"
-  CLAUDE_DIR="$TARGET/.claude"
-  SCOPE="project"
-fi
 
-case "$AGENT_NAME" in
-  ''|*[!a-z0-9-]*)
-    echo "Invalid agent name: $AGENT_NAME" >&2
-    echo "Use lowercase letters, numbers, and hyphens only." >&2
+  if [ "$TARGET" = "$SCRIPT_DIR" ]; then
+    echo "Refusing to uninstall from the Blueprint source repository." >&2
     exit 2
-    ;;
-esac
+  fi
 
-AGENT_FILE="$CLAUDE_DIR/agents/$AGENT_NAME.md"
+  echo "Removing Blueprint from: $TARGET"
+  for source in "$SCRIPT_DIR"/.claude/commands/*.md; do
+    remove_file "$TARGET/.claude/commands/$(basename "$source")"
+  done
+  for source in "$SCRIPT_DIR"/.claude/agents/*.md; do
+    remove_file "$TARGET/.claude/agents/$(basename "$source")"
+  done
 
-if [ ! -f "$AGENT_FILE" ]; then
-  echo "Agent is not installed at: $AGENT_FILE" >&2
-  exit 1
+  for source_root in methodology templates; do
+    while IFS= read -r -d '' source; do
+      relative_path="${source#"$SCRIPT_DIR/$source_root/"}"
+      remove_file "$TARGET/$source_root/$relative_path"
+    done < <(find "$SCRIPT_DIR/$source_root" -type f -print0)
+  done
 fi
 
-rm -- "$AGENT_FILE"
-
-echo "Removed $SCOPE agent: $AGENT_NAME"
-echo "  $AGENT_FILE"
-
-if [ -d "$CLAUDE_DIR/commands" ] &&
-   grep -R -l -F -- "$AGENT_NAME" "$CLAUDE_DIR/commands" >/dev/null 2>&1; then
-  echo ""
-  echo "Warning: installed commands still reference '$AGENT_NAME'." >&2
-  echo "Those workflows may fail until you update or reinstall them." >&2
-fi
-
-echo "Start a new Claude Code session to ensure the agent is unloaded."
+echo "Blueprint uninstall complete. Generated intent files were preserved."
+echo "Start a new Claude Code session to unload the removed agents."
