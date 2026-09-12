@@ -69,7 +69,32 @@ Run `install.sh` again against the same project. It replaces the command,
 agent, and methodology files, but never touches anything in `intent/` —
 your generated documents and open decisions are safe.
 
-## Removing it
+## Removing one agent
 
-Delete the files listed in step 3. Your `intent/` output is yours to keep
-or delete separately.
+From the Blueprint repository, remove a project-local agent with:
+
+```bash
+./install/uninstall-agent.sh <agent-name> /path/to/your-project
+```
+
+With no project path, the current directory is used:
+
+```bash
+./install/uninstall-agent.sh <agent-name>
+```
+
+Remove a global agent with:
+
+```bash
+./install/uninstall-agent.sh --global <agent-name>
+```
+
+Only the exact agent definition under `.claude/agents/` is removed.
+Methodology, commands, and generated `intent/` files remain. The script
+warns when an installed command still references the agent; update that
+command or reinstall Blueprint before using the workflow again. Start a
+new Claude Code session after removal.
+
+To remove Blueprint entirely, delete its installed commands, agents, and
+support files manually. Keep or delete generated `intent/` files
+separately.
