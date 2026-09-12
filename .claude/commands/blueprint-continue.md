@@ -1,5 +1,5 @@
 ---
-description: "Resume Blueprint after the human has approved/edited intent/feature-map.md — runs parallel specialist analysis, synthesizes intent files, validates for technology leakage, and runs the quality gate. Second and final step of the Blueprint product-intent pipeline."
+description: "Resume Blueprint after the human has approved/edited intent/roadmap.md. Runs parallel specialist analysis, synthesizes intent files, validates for technology leakage, and runs the quality gate. Second and final step of the Blueprint product-intent pipeline."
 ---
 
 You are running **Blueprint Phases 3-7**, as defined in
@@ -10,12 +10,12 @@ file in full before doing anything else, along with every file in
 
 ## Preconditions
 
-Read `intent/feature-map.md`. If it doesn't exist, tell the user to run
+Read `intent/roadmap.md`. If it doesn't exist, tell the user to run
 `/blueprint` first. If its `Decision:` field is not `APPROVED` or
 `APPROVED WITH CHANGES`, stop and tell the user to approve it first — do
 not proceed on a proposed-but-unapproved map.
 
-Treat whatever is currently in `feature-map.md` as ground truth. Do not
+Treat whatever is currently in `roadmap.md` as ground truth. Do not
 re-decide boundaries yourself.
 
 ## Do this now

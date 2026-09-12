@@ -7,7 +7,7 @@ everything in one go.
 /blueprint
   → look at the design material
   → split the product into features
-  → write intent/feature-map.md
+  → write intent/roadmap.md
   → STOP and wait for a human to approve it
 
 /blueprint-continue
@@ -30,12 +30,12 @@ outcome it should produce, where the evidence came from, and anything
 uncertain about the boundary itself. If there's more than one reasonable
 way to split something, say so.
 
-Write this to `intent/feature-map.md`, then stop. Don't move on to
+Write this to `intent/roadmap.md`, then stop. Don't move on to
 detailed analysis in the same run.
 
 ## Step 2 (only after approval): /blueprint-continue
 
-Whatever is in `feature-map.md` when this runs is final — don't
+Whatever is in `roadmap.md` when this runs is final. Don't
 second-guess the boundaries.
 
 For each approved feature, four specialists look at it independently:

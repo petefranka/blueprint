@@ -15,4 +15,4 @@ distinct product features.
 **Not this agent's job:** writing requirements, workflows, or UX detail.
 That only happens after a human approves the feature list.
 
-**Output:** `intent/feature-map.md`
+**Output:** `intent/roadmap.md`
